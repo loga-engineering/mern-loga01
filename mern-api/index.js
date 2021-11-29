@@ -1,6 +1,7 @@
 console.time('StartUp');
 
 const express = require('express');
+const cors = require('cors');
 
 const {initDb} = require('./db/init.db');
 
@@ -11,6 +12,7 @@ initDb()
 
         const app = express();
         app.use(express.json());
+        app.use(cors());
 
         app.use('/persons', personRouter);
 

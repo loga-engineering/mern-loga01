@@ -1,10 +1,30 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
+import axios from 'axios';
+
+const initialPerson = {
+    name: '',
+    address: ''
+};
 
 function Person() {
-    const [person, setPerson] = useState({
-        name: '',
-        address: ''
-    });
+
+    const [persons, setPersons] = useState([]);
+
+    const [person, setPerson] = useState(initialPerson);
+
+    useEffect(() => {
+        fetchPersons()
+    }, []);
+
+    const fetchPersons = async () => {
+        console.log('Fetch Persons');
+        try {
+            const res = await axios.get('http://localhost:8080/persons');
+            setPersons(res.data);
+        } catch (e) {
+            console.log(e);
+        }
+    }
 
     const handleChange = id => e => {
         const {target: {value}} = e;
@@ -14,10 +34,19 @@ function Person() {
         });
     }
 
-    const handleCreate = (e) => {
+    const handleCreate = async (e) => {
         e.preventDefault();
 
-        console.log(person);
+        try {
+            await axios.post('http://localhost:8080/persons', person);
+
+            setPerson(initialPerson);
+
+            await fetchPersons();
+
+        } catch (e) {
+            console.log(e);
+        }
     }
 
     const {name, address} = person;
@@ -32,7 +61,26 @@ function Person() {
                 <button onClick={handleCreate}>Creer</button>
             </form>
 
-            {name} - {address}
+            <table>
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Nom</th>
+                    <th>Adresse</th>
+                </tr>
+                </thead>
+                <tbody>
+                {
+                    persons.map(({id, name, address}) => (
+                        <tr key={id}>
+                            <td>{id}</td>
+                            <td>{name}</td>
+                            <td>{address}</td>
+                        </tr>
+                    ))
+                }
+                </tbody>
+            </table>
         </div>
     );
 }
