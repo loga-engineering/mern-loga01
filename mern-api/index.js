@@ -1,14 +1,24 @@
 console.time('StartUp');
 
 const express = require('express');
-const {personRouter} = require('./persons');
 
-const app = express();
-app.use(express.json());
+const {initDb} = require('./db/init.db');
 
-app.use('/persons', personRouter);
+const {personRouter} = require('./persons/persons.router');
 
-app.listen(8080, () => {
-    console.log('App listen on 8080');
-    console.timeEnd('StartUp');
-});
+initDb()
+    .then(() => {
+
+        const app = express();
+        app.use(express.json());
+
+        app.use('/persons', personRouter);
+
+        app.listen(8080, () => {
+            console.log('App listen on 8080');
+            console.timeEnd('StartUp');
+        });
+    })
+    .catch((error) => {
+        console.log('Error DB: ', error);
+    });
