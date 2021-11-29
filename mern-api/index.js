@@ -4,25 +4,9 @@ const express = require('express');
 const {personRouter} = require('./persons');
 
 const app = express();
+app.use(express.json());
 
-const firstMiddleware = (req, res, next) => {
-    next();
-}
-
-const secondMiddleware = (req, res, next) => {
-    next();
-}
-
-app.use(firstMiddleware);
-app.use(secondMiddleware);
-
-const testGet = (req, res) => {
-    res.send('Hello');
-}
-
-app.get('/test/:name', testGet);
-
-app.get('/', testGet);
+app.use('/persons', personRouter);
 
 app.listen(8080, () => {
     console.log('App listen on 8080');
