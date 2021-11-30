@@ -1,5 +1,5 @@
 const {Router} = require('express');
-const {create, findAll, findById, update, destroy, search} = require('./persons.controller');
+const {create, findAll, findById, update, destroy, search} = require('./address.controller');
 
 const personRouter = Router();
 

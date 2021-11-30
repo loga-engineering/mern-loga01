@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {create} from './person.service';
-import {TextField, Button, Grid} from "@mui/material";
+import {Container, TextField, Button, Grid} from "@mui/material";
 
 const initialPerson = {
     name: '',
@@ -37,7 +37,7 @@ export default function PersonForm(props) {
     const {name, address} = person;
 
     return (
-        <div className="App">
+        <Container>
             <h1>Form</h1>
 
             <form>
@@ -58,6 +58,6 @@ export default function PersonForm(props) {
                 </Grid>
             </form>
 
-        </div>
+        </Container>
     );
 }

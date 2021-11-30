@@ -70,6 +70,12 @@ const search = async ({query}) => {
         {where}
     );
 
+    // return new Promise((resole, error) => {
+    //     setTimeout(() => {
+    //         resole(ok(persons))
+    //     }, 5000);
+    // });
+
     return ok(persons);
 }
 
