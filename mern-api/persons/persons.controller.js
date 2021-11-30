@@ -1,47 +1,48 @@
 const personsService = require('./persons.service');
+const {toResponse} = require("../utils/http.utils");
 
 const findAll = async (req, res) => {
-    const persons = await personsService.findAll();
-    res.json(persons);
+    const rw = await personsService.findAll();
+    return toResponse(res, rw);
 }
 
 const findById = async (req, res) => {
     const {id} = req.params;
-    const person = await personsService.findById(id);
-    res.json(person);
+    const rw = await personsService.findById(id);
+    return toResponse(res, rw);
 }
 
 const create = async (req, res) => {
     let {body: person} = req;
 
-    person = await personsService.create(person);
+    const rw = await personsService.create(person);
 
-    res.json(person);
+    return toResponse(res, rw);
 }
 
 const update = async (req, res) => {
     const {id} = req.params;
     let {body: person} = req;
 
-    person = await personsService.update(id, person);
+    const rw = await personsService.update(id, person);
 
-    res.json(person);
+    return toResponse(res, rw);
 }
 
 const destroy = async (req, res) => {
     const {id} = req.params;
 
-    await personsService.destroy(id);
+    const rw = await personsService.destroy(id);
 
-    res.send('OK');
+    return toResponse(res, rw);
 }
 
 const search = async (req, res) => {
-    let {body: args} = req;
+    let {query: args} = req;
 
-    const persons = await personsService.search(args);
+    const rw = await personsService.search(args);
 
-    res.json(persons);
+    return toResponse(res, rw);
 }
 
 module.exports = {

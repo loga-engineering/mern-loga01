@@ -1,5 +1,9 @@
 console.time('StartUp');
 
+require('dotenv').config();
+
+console.log(process.env.PORT);
+
 const express = require('express');
 const cors = require('cors');
 

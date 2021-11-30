@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 const dbConfig = {
     HOST: 'localhost',
-    PORT: 3306,
+    PORT: process.env.PORT,
     USER: 'root',
     PASSWORD: 'Loga2000',
     DB: 'mern_loga',

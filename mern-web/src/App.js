@@ -1,12 +1,10 @@
 import './App.css';
-import Person from "./Person";
-import Address from "./Address";
+import Person from "./persons/Person";
 
 const App = () => {
     return (
         <div>
             <Person/>
-            {/*<Address/>*/}
         </div>
     )
 }
